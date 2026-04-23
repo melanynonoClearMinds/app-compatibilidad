@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LoveMatch Pro</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!-- Pantalla de Autenticación -->
+  <div id="auth-screen" class="auth-screen">
+    <div class="auth-container">
+      <div class="auth-logo">
+        <img src="lovematch.png" alt="LoveMatch Logo" class="logo-img" />
+        <h1 class="auth-title">LoveMatch</h1>
+        <p class="auth-subtitle">Tu espacio para el amor</p>
+      </div>
+
+      <!-- Formulario de Login -->
+      <div id="login-form" class="auth-form">
+        <h2>Iniciar Sesión</h2>
+        <div class="input-group">
+          <input type="email" id="login-email" placeholder="Correo electrónico" required />
+          <span class="error-message" id="login-email-error"></span>
+        </div>
+        <div class="input-group">
+          <input type="password" id="login-password" placeholder="Contraseña" required />
+          <span class="error-message" id="login-password-error"></span>
+        </div>
+        <button class="auth-btn primary" onclick="iniciarSesion()">Entrar</button>
+        <p class="auth-switch">
+          ¿No tienes cuenta? <a href="#" onclick="mostrarRegistro(); return false;">Regístrate aquí</a>
+        </p>
+      </div>
+
+      <!-- Formulario de Registro -->
+      <div id="register-form" class="auth-form hidden">
+        <h2>Crear Cuenta</h2>
+        <div class="input-group">
+          <input type="text" id="register-name" placeholder="Tu nombre" required />
+          <span class="error-message" id="register-name-error"></span>
+        </div>
+        <div class="input-group">
+          <input type="email" id="register-email" placeholder="Correo electrónico" required />
+          <span class="error-message" id="register-email-error"></span>
+        </div>
+        <div class="input-group">
+          <input type="password" id="register-password" placeholder="Contraseña (mín. 6 caracteres)" required />
+          <span class="error-message" id="register-password-error"></span>
+        </div>
+        <div class="input-group">
+          <input type="password" id="register-password-confirm" placeholder="Confirmar contraseña" required />
+          <span class="error-message" id="register-password-confirm-error"></span>
+        </div>
+        <div class="input-group">
+          <input type="text" id="register-partner" placeholder="Nombre de tu pareja (opcional)" />
+        </div>
+        <div class="input-group">
+          <input type="date" id="register-date" placeholder="Fecha de inicio de relación (opcional)" />
+        </div>
+        <button class="auth-btn primary" onclick="registrarUsuario()">Crear Cuenta</button>
+        <p class="auth-switch">
+          ¿Ya tienes cuenta? <a href="#" onclick="mostrarLogin(); return false;">Inicia sesión aquí</a>
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Aplicación Principal -->
+  <div id="main-app" class="hidden">
+
+  <header>
+    <div class="floating-emojis">
+      <span class="emoji-float" style="left: 10%; animation-delay: 0s;">💕</span>
+      <span class="emoji-float" style="left: 25%; animation-delay: 2s;">💖</span>
+      <span class="emoji-float" style="left: 40%; animation-delay: 1s;">💗</span>
+      <span class="emoji-float" style="left: 60%; animation-delay: 3s;">💓</span>
+      <span class="emoji-float" style="left: 75%; animation-delay: 1.5s;">💘</span>
+      <span class="emoji-float" style="left: 90%; animation-delay: 2.5s;">💝</span>
+    </div>
+    <div class="logo-container">
+      <div class="logo-heart bounce">💕</div>
+      <h1>LoveMatch</h1>
+    </div>
+    <p class="header-subtitle">Tu espacio para el amor</p>
+  </header>
+
+  <!-- Pantalla de inicio con widgets -->
+  <main id="home-screen">
+    <div class="widgets-container">
+      <div class="widget-card" data-section="probabilidad">
+        <div class="widget-icon">🎲</div>
+        <h3>Probabilidad</h3>
+        <p>Descubre tu probabilidad con tu crush</p>
+      </div>
+
+      <div class="widget-card" data-section="crush">
+        <div class="widget-icon">💘</div>
+        <h3>Compatibilidad Crush</h3>
+        <p>¿Qué tan compatibles son?</p>
+      </div>
+
+      <div class="widget-card" data-section="pareja">
+        <div class="widget-icon">❤️</div>
+        <h3>Compatibilidad Pareja</h3>
+        <p>Evalúa tu relación actual</p>
+      </div>
+
+      <div class="widget-card" data-section="infidelidad">
+        <div class="widget-icon">⚠️</div>
+        <h3>Señales de Alerta</h3>
+        <p>Analiza tu relación</p>
+      </div>
+
+      <div class="widget-card" data-section="chat">
+        <div class="widget-icon">💬</div>
+        <h3>Chat de Pareja</h3>
+        <p>Mensajes y dibujos</p>
+      </div>
+
+      <div class="widget-card" data-section="album">
+        <div class="widget-icon">📸</div>
+        <h3>Álbum de Recuerdos</h3>
+        <p>Guarda momentos especiales</p>
+      </div>
+
+      <div class="widget-card" data-section="dias">
+        <div class="widget-icon">⏳</div>
+        <h3>Días Juntos</h3>
+        <p>Cuenta los días de amor</p>
+      </div>
+
+      <div class="widget-card" data-section="calendario">
+        <div class="widget-icon">📅</div>
+        <h3>Fechas Especiales</h3>
+        <p>Aniversarios y eventos</p>
+      </div>
+
+      <div class="widget-card" data-section="bienestar">
+        <div class="widget-icon">🧠</div>
+        <h3>Bienestar Relacional</h3>
+        <p>Evalúa tu bienestar mensual</p>
+      </div>
+    </div>
+  </main>
+
+  <!-- Barra de navegación inferior -->
+  <nav class="bottom-nav">
+    <button class="bottom-nav-btn active" data-nav="home">
+      <div class="nav-icon-wrapper">
+        <svg viewBox="0 0 24 24" fill="currentColor">
+          <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
+        </svg>
+      </div>
+      <span>Inicio</span>
+    </button>
+    
+    <button class="bottom-nav-btn" data-nav="chat">
+      <div class="nav-icon-wrapper">
+        <svg viewBox="0 0 24 24" fill="currentColor">
+          <path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/>
+        </svg>
+      </div>
+      <span>Chat</span>
+    </button>
+    
+    <button class="bottom-nav-btn" data-nav="favorites">
+      <div class="nav-icon-wrapper">
+        <svg viewBox="0 0 24 24" fill="currentColor">
+          <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+        </svg>
+      </div>
+      <span>Favoritos</span>
+    </button>
+    
+    <button class="bottom-nav-btn" data-nav="calendar">
+      <div class="nav-icon-wrapper">
+        <svg viewBox="0 0 24 24" fill="currentColor">
+          <path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11z"/>
+        </svg>
+      </div>
+      <span>Calendario</span>
+    </button>
+    
+    <button class="bottom-nav-btn" data-nav="profile">
+      <div class="nav-icon-wrapper">
+        <svg viewBox="0 0 24 24" fill="currentColor">
+          <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+        </svg>
+      </div>
+      <span>Perfil</span>
+    </button>
+  </nav>
+
+  <nav id="main-nav" class="hidden">
+    <button id="menu-toggle" class="menu-hamburger" aria-label="Toggle menu">
+      <span class="hamburger-line"></span>
+      <span class="hamburger-line"></span>
+      <span class="hamburger-line"></span>
+    </button>
+    <div id="menu-items" class="menu-items">
+      <button class="nav-btn" data-section="probabilidad"><span class="nav-icon">🎲</span> Probabilidad</button>
+      <button class="nav-btn" data-section="crush"><span class="nav-icon">💘</span> Crush</button>
+      <button class="nav-btn" data-section="pareja"><span class="nav-icon">❤️</span> Pareja</button>
+      <button class="nav-btn" data-section="infidelidad"><span class="nav-icon">⚠️</span> Infidelidad</button>
+      <button class="nav-btn" data-section="chat"><span class="nav-icon">💬</span> Chat</button>
+      <button class="nav-btn" data-section="album"><span class="nav-icon">📸</span> Álbum</button>
+      <button class="nav-btn" data-section="dias"><span class="nav-icon">⏳</span> Días Juntos</button>
+      <button class="nav-btn" data-section="calendario"><span class="nav-icon">📅</span> Calendario</button>
+      <button class="nav-btn" data-section="bienestar"><span class="nav-icon">🧠</span> Bienestar</button>
+    </div>
+  </nav>
+
+  <main>
+
+    <!-- ===== PROBABILIDAD CRUSH ===== -->
+    <section id="probabilidad" class="seccion seccion-probabilidad">
+      <div class="section-emoji">🎲</div>
+      <h2>Probabilidad con tu Crush</h2>
+      <p class="aviso">Esta aplicación es solo una simulación basada en respuestas, no representa resultados reales.</p>
+      <div class="form-card">
+        <div class="form-group">
+          <label>Tu nombre</label>
+          <input type="text" id="prob-nombre-tuyo" placeholder="Escribe tu nombre" />
+        </div>
+        <div class="form-group">
+          <label>Nombre de tu crush</label>
+          <input type="text" id="prob-nombre-crush" placeholder="Escribe el nombre de tu crush" />
+        </div>
+        <button class="btn-primary btn-probabilidad" onclick="calcularProbabilidadCrush()">Ver probabilidad</button>
+        <button class="btn-secondary" onclick="reiniciarProbabilidad()">Reintentar</button>
+        <div id="prob-resultado" class="resultado hidden"></div>
+      </div>
+    </section>
+
+    <!-- ===== CRUSH ===== -->
+    <section id="crush" class="seccion seccion-crush hidden">
+      <div class="section-emoji">💘</div>
+      <h2>Compatibilidad con tu Crush</h2>
+      <p class="aviso">Esta aplicación es solo una simulación basada en respuestas, no representa resultados reales.</p>
+      <div class="form-card">
+        <div class="form-row">
+          <div class="form-group">
+            <label>Tu nombre</label>
+            <input type="text" id="crush-nombre-a" placeholder="Tu nombre" />
+          </div>
+          <div class="form-group">
+            <label>Nombre de tu crush</label>
+            <input type="text" id="crush-nombre-b" placeholder="Nombre de tu crush" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Tu signo zodiacal</label>
+          <select id="crush-signo-a"><option value="">-- Selecciona --</option><option>Aries</option><option>Tauro</option><option>Géminis</option><option>Cáncer</option><option>Leo</option><option>Virgo</option><option>Libra</option><option>Escorpio</option><option>Sagitario</option><option>Capricornio</option><option>Acuario</option><option>Piscis</option></select>
+        </div>
+        <div class="form-group">
+          <label>Signo zodiacal de tu crush</label>
+          <select id="crush-signo-b"><option value="">-- Selecciona --</option><option>Aries</option><option>Tauro</option><option>Géminis</option><option>Cáncer</option><option>Leo</option><option>Virgo</option><option>Libra</option><option>Escorpio</option><option>Sagitario</option><option>Capricornio</option><option>Acuario</option><option>Piscis</option></select>
+        </div>
+        <div id="crush-preguntas"></div>
+        <button class="btn-primary btn-crush" onclick="calcularCrush()">Ver compatibilidad</button>
+        <button class="btn-secondary" onclick="reiniciarCrush()">Reintentar</button>
+        <div id="crush-resultado" class="resultado hidden"></div>
+      </div>
+    </section>
+
+    <!-- ===== PAREJA ===== -->
+    <section id="pareja" class="seccion seccion-pareja hidden">
+      <div class="section-emoji">❤️</div>
+      <h2>Compatibilidad con tu Pareja</h2>
+      <p class="aviso">Esta aplicación es solo una simulación basada en respuestas, no representa resultados reales.</p>
+      <div class="form-card">
+        <div class="form-row">
+          <div class="form-group">
+            <label>Tu nombre</label>
+            <input type="text" id="pareja-nombre-a" placeholder="Tu nombre" />
+          </div>
+          <div class="form-group">
+            <label>Nombre de tu pareja</label>
+            <input type="text" id="pareja-nombre-b" placeholder="Nombre de tu pareja" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Tu signo zodiacal</label>
+          <select id="pareja-signo-a"><option value="">-- Selecciona --</option><option>Aries</option><option>Tauro</option><option>Géminis</option><option>Cáncer</option><option>Leo</option><option>Virgo</option><option>Libra</option><option>Escorpio</option><option>Sagitario</option><option>Capricornio</option><option>Acuario</option><option>Piscis</option></select>
+        </div>
+        <div class="form-group">
+          <label>Signo zodiacal de tu pareja</label>
+          <select id="pareja-signo-b"><option value="">-- Selecciona --</option><option>Aries</option><option>Tauro</option><option>Géminis</option><option>Cáncer</option><option>Leo</option><option>Virgo</option><option>Libra</option><option>Escorpio</option><option>Sagitario</option><option>Capricornio</option><option>Acuario</option><option>Piscis</option></select>
+        </div>
+        <div id="pareja-preguntas"></div>
+        <button class="btn-primary btn-pareja" onclick="calcularPareja()">Ver compatibilidad</button>
+        <button class="btn-secondary" onclick="reiniciarPareja()">Reintentar</button>
+        <div id="pareja-resultado" class="resultado hidden"></div>
+      </div>
+    </section>
+
+    <!-- ===== INFIDELIDAD ===== -->
+    <section id="infidelidad" class="seccion seccion-infidelidad hidden">
+      <div class="section-emoji">⚠️</div>
+      <h2>Probabilidad de Infidelidad</h2>
+      <p class="aviso">Esta aplicación es solo una simulación basada en respuestas, no representa resultados reales.</p>
+      <div class="form-card">
+        <div id="infidelidad-preguntas"></div>
+        <button class="btn-primary btn-infidelidad" onclick="calcularInfidelidad()">Ver probabilidad</button>
+        <button class="btn-secondary" onclick="reiniciarInfidelidad()">Reintentar</button>
+        <div id="infidelidad-resultado" class="resultado hidden"></div>
+      </div>
+    </section>
+
+    <!-- ===== CHAT ===== -->
+    <section id="chat" class="seccion seccion-chat hidden">
+      <h2>Chat de Pareja</h2>
+      <div class="form-card">
+        <div class="form-row">
+          <div class="form-group">
+            <label>Tu nombre</label>
+            <input type="text" id="chat-nombre-a" placeholder="Tu nombre" />
+          </div>
+          <div class="form-group">
+            <label>Nombre de tu pareja</label>
+            <input type="text" id="chat-nombre-b" placeholder="Nombre de tu pareja" />
+          </div>
+        </div>
+        <div class="distancia-box">
+          <h3>Distancia entre ustedes</h3>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Tu ciudad</label>
+              <input type="text" id="ciudad-a" placeholder="Ej: Bogotá" />
+            </div>
+            <div class="form-group">
+              <label>Ciudad de tu pareja</label>
+              <input type="text" id="ciudad-b" placeholder="Ej: Medellín" />
+            </div>
+          </div>
+          <button class="btn-primary btn-chat" onclick="calcularDistancia()">Calcular distancia</button>
+          <div id="distancia-resultado" class="resultado hidden"></div>
+        </div>
+        <div class="chat-area" id="chat-mensajes"></div>
+        <div class="chat-input-row">
+          <input type="text" id="chat-input" placeholder="Escribe una notita... (máx 500 caracteres)" maxlength="500" />
+          <button class="btn-primary btn-chat" onclick="enviarMensaje()">Enviar</button>
+        </div>
+        <div class="canvas-box">
+          <h3>Dibuja algo para tu pareja</h3>
+          <div class="canvas-tools">
+            <button class="color-btn" style="background:#ff6b9d" onclick="setColor('#ff6b9d')"></button>
+            <button class="color-btn" style="background:#2ed573" onclick="setColor('#2ed573')"></button>
+            <button class="color-btn" style="background:#74b9ff" onclick="setColor('#74b9ff')"></button>
+            <button class="color-btn" style="background:#ffa502" onclick="setColor('#ffa502')"></button>
+            <button class="color-btn" style="background:#2d3436" onclick="setColor('#2d3436')"></button>
+            <button class="btn-secondary" onclick="borrarCanvas()">Borrar</button>
+            <button class="btn-primary btn-chat" onclick="enviarDibujo()">Enviar dibujo</button>
+          </div>
+          <canvas id="canvas-dibujo" width="600" height="300"></canvas>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== ALBUM ===== -->
+    <section id="album" class="seccion seccion-album hidden">
+      <h2>Álbum de Recuerdos</h2>
+      <div class="form-card">
+        <div class="form-group">
+          <label>Selecciona una foto</label>
+          <input type="file" id="album-foto" accept="image/*" onchange="previewFoto()" />
+        </div>
+        <img id="album-preview" class="img-preview hidden" alt="Preview" />
+        <div class="form-group">
+          <label>¿Qué hicieron ese día?</label>
+          <textarea id="album-desc" placeholder="Describe este recuerdo... (máx 300 caracteres)" maxlength="300" rows="3"></textarea>
+        </div>
+        <button class="btn-primary btn-album" onclick="guardarFoto()">Guardar recuerdo</button>
+        <div id="album-galeria" class="galeria"></div>
+      </div>
+    </section>
+
+    <!-- ===== DIAS ===== -->
+    <section id="dias" class="seccion seccion-dias hidden">
+      <h2>Contador de Días Juntos</h2>
+      <div class="form-card">
+        <div class="form-group">
+          <label>¿Desde cuándo están juntos?</label>
+          <input type="date" id="dias-fecha" />
+        </div>
+        <button class="btn-primary btn-dias" onclick="calcularDias()">Calcular</button>
+        <div id="dias-resultado" class="resultado hidden"></div>
+      </div>
+    </section>
+
+    <!-- ===== CALENDARIO ===== -->
+    <section id="calendario" class="seccion seccion-calendario hidden">
+      <h2>Fechas Especiales</h2>
+      <div class="form-card">
+        <div class="form-row">
+          <div class="form-group">
+            <label>Nombre del evento</label>
+            <input type="text" id="cal-nombre" placeholder="Ej: Aniversario" />
+          </div>
+          <div class="form-group">
+            <label>Fecha</label>
+            <input type="date" id="cal-fecha" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Descripción (opcional)</label>
+          <input type="text" id="cal-desc" placeholder="Descripción del evento" />
+        </div>
+        <button class="btn-primary btn-calendario" onclick="agregarEvento()">Agregar fecha</button>
+        <div id="cal-lista" class="lista-eventos"></div>
+      </div>
+    </section>
+
+    <!-- ===== PERFIL ===== -->
+    <section id="bienestar" class="seccion seccion-perfil hidden">
+      <div class="profile-header">
+        <div class="profile-photo">
+          <img id="profile-img" src="https://via.placeholder.com/150" alt="Foto de perfil" />
+          <button class="edit-photo-btn" onclick="cambiarFotoPerfil()">📷</button>
+          <input type="file" id="profile-photo-input" accept="image/*" style="display:none;" onchange="actualizarFotoPerfil()" />
+        </div>
+        <h2 id="profile-name">Mi Perfil</h2>
+      </div>
+
+      <div class="profile-options">
+        <div class="profile-card" onclick="mostrarSobreTi()">
+          <div class="profile-card-content">
+            <span class="profile-icon">👤</span>
+            <span class="profile-text">Sobre ti</span>
+          </div>
+          <span class="profile-arrow">›</span>
+        </div>
+
+        <div class="profile-card" onclick="mostrarSobreRelacion()">
+          <div class="profile-card-content">
+            <span class="profile-icon">💑</span>
+            <span class="profile-text">Sobre vuestra relación</span>
+          </div>
+          <span class="profile-arrow">›</span>
+        </div>
+
+        <div class="profile-card pro-card">
+          <div class="pro-header">
+            <h3>LoveMatch PRO <span class="pro-badge">PRO</span></h3>
+            <p>Desbloquea todos los juegos, entradas ilimitadas en el diario y widgets</p>
+          </div>
+          <button class="btn-comprar" onclick="mostrarCompraPro()">Comprar ›</button>
+        </div>
+
+        <div class="profile-card" onclick="mostrarWidgets()">
+          <div class="profile-card-content">
+            <span class="profile-icon">🎨</span>
+            <span class="profile-text">Widgets</span>
+          </div>
+          <span class="profile-arrow">›</span>
+        </div>
+
+        <div class="profile-card" onclick="cambiarIdioma()">
+          <div class="profile-card-content">
+            <span class="profile-icon">🌐</span>
+            <span class="profile-text">Lengua</span>
+          </div>
+          <div class="profile-card-right">
+            <span class="profile-value" id="idioma-actual">Español</span>
+            <span class="profile-arrow">›</span>
+          </div>
+        </div>
+
+        <div class="profile-card" onclick="cambiarUnidadDistancia()">
+          <div class="profile-card-content">
+            <span class="profile-icon">📏</span>
+            <span class="profile-text">Unidad de distancia</span>
+          </div>
+          <div class="profile-card-right">
+            <span class="profile-value" id="unidad-distancia">kilómetros</span>
+            <span class="profile-arrow">›</span>
+          </div>
+        </div>
+
+        <div class="profile-card" onclick="solicitarPermisoUbicacion()">
+          <div class="profile-card-content">
+            <span class="profile-icon">📍</span>
+            <span class="profile-text">Permisos de acceso a la ubicación</span>
+          </div>
+          <div class="profile-card-right">
+            <span class="profile-status denied" id="ubicacion-status">✕</span>
+            <span class="profile-arrow">›</span>
+          </div>
+        </div>
+
+        <div class="profile-card" onclick="configurarNotificaciones()">
+          <div class="profile-card-content">
+            <span class="profile-icon">🔔</span>
+            <span class="profile-text">Notificaciones</span>
+          </div>
+          <span class="profile-arrow">›</span>
+        </div>
+
+        <div class="profile-card logout-card" onclick="cerrarSesion()">
+          <div class="profile-card-content">
+            <span class="profile-icon">�</span>
+            <span class="profile-text">Cerrar sesión</span>
+          </div>
+          <span class="profile-arrow">›</span>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Modal foto ampliada -->
+  <div id="modal-foto" class="modal hidden" onclick="cerrarModal()">
+    <div class="modal-content" onclick="event.stopPropagation()">
+      <img id="modal-img" alt="Foto ampliada" />
+      <p id="modal-desc"></p>
+      <button class="btn-secondary" onclick="cerrarModal()">Cerrar</button>
+    </div>
+  </div>
+
+  </div> <!-- Fin de main-app -->
+
+  <script src="script.js"></script>
+</body>
+</html>

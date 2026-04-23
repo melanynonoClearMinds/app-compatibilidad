@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Test Navigation</title>
+  <style>
+    .hidden {
+      display: none !important;
+    }
+    .seccion {
+      padding: 20px;
+      margin: 20px;
+      border: 2px solid #000;
+    }
+    button {
+      margin: 5px;
+      padding: 10px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Test de Navegación</h1>
+  
+  <div>
+    <button onclick="navegarA('probabilidad')">Probabilidad</button>
+    <button onclick="navegarA('crush')">Crush</button>
+    <button onclick="navegarA('pareja')">Pareja</button>
+  </div>
+
+  <section id="probabilidad" class="seccion">
+    <h2>Probabilidad</h2>
+    <p>Esta es la sección de probabilidad</p>
+  </section>
+
+  <section id="crush" class="seccion hidden">
+    <h2>Crush</h2>
+    <p>Esta es la sección de crush</p>
+  </section>
+
+  <section id="pareja" class="seccion hidden">
+    <h2>Pareja</h2>
+    <p>Esta es la sección de pareja</p>
+  </section>
+
+  <script>
+    const SECCIONES = ['probabilidad', 'crush', 'pareja'];
+
+    function navegarA(seccionId) {
+      console.log('Navegando a:', seccionId);
+      
+      SECCIONES.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) {
+          el.classList.add('hidden');
+          console.log('Ocultando:', id);
+        }
+      });
+
+      const destino = document.getElementById(seccionId);
+      if (destino) {
+        destino.classList.remove('hidden');
+        console.log('Mostrando:', seccionId);
+      }
+    }
+  </script>
+</body>
+</html>
